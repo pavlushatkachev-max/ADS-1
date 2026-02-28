@@ -2,10 +2,7 @@
 #include <cstdint>
 #include "alg.h"
 #include <iostream>
-
-
-bool checkPrime(uint64_t value)
-  {
+bool checkPrime(uint64_t value){
   if (value < 2) 
   {
     return false;
@@ -28,10 +25,7 @@ bool checkPrime(uint64_t value)
     return true;
   }
 }
-
-
-uint64_t nPrime(uint64_t n)
-  {
+uint64_t nPrime(uint64_t n){
   if (n == 0) 
   {
     std::cout << "Error! The number starts with 1." << std::endl;
@@ -55,77 +49,71 @@ uint64_t nPrime(uint64_t n)
     return value;
   }
 }
-
-uint64_t nextPrime(uint64_t value) 
+uint64_t nextPrime(uint64_t value){
+  if (checkPrime(value)) 
   {
-    if (checkPrime(value)) 
+    if (value == 2) 
     {
-      if (value == 2) 
-      {
-        return 3;
-        } 
-      else 
-      {
-        value += 2;
-        while (!checkPrime(value)) 
-        {
-          value += 2;
-        }
-      }
-    } 
+      return 3;
+      } 
     else 
     {
+      value += 2;
       while (!checkPrime(value)) 
       {
-        value++;
+        value += 2;
       }
     }
-    return value;
+  } 
+  else 
+  {
+    while (!checkPrime(value)) 
+    {
+      value++;
+    }
   }
-
-uint64_t sumPrime(const uint64_t hbound) 
-  {
-    if (hbound <= 2) 
-    {
-      return 0;
-    } 
-    else 
-    {
-      uint64_t sum = 0;
-      for (uint64_t i = 2; i < hbound; i = nextPrime(i)) 
-      {
-        sum += i;
-      }
-      return sum;
-    }
+  return value;
 }
-
-uint64_t twinPrimes(uint64_t lbound, const uint64_t hbound) 
+uint64_t sumPrime(const uint64_t hbound){
+  if (hbound <= 2) 
   {
-    if (hbound < 3) 
+    return 0;
+  } 
+  else 
+  {
+    uint64_t sum = 0;
+    for (uint64_t i = 2; i < hbound; i = nextPrime(i)) 
     {
-      return 0;
-    } 
-    else if (hbound - lbound < 2) 
-    {
-      return 0;
-    } 
-    else 
-    {
-      uint64_t twin = 0;
-      while (lbound < hbound) 
-      {
-        if (!checkPrime(lbound)) 
-        {
-          lbound = nextPrime(lbound);
-        }
-        uint64_t pr = lbound;
-        lbound = nextPrime(lbound);
-        if (lbound >= hbound)
-          break;
-        if (lbound - pr == 2)
-          twin++;
-        }
-      return twin;
+      sum += i;
     }
+    return sum;
+  }
+}
+uint64_t twinPrimes(uint64_t lbound, const uint64_t hbound){
+  if (hbound < 3) 
+  {
+    return 0;
+  } 
+  else if (hbound - lbound < 2) 
+  {
+    return 0;
+  } 
+  else 
+  {
+    uint64_t twin = 0;
+    while (lbound < hbound) 
+    {
+      if (!checkPrime(lbound)) 
+      {
+        lbound = nextPrime(lbound);
+      }
+      uint64_t pr = lbound;
+      lbound = nextPrime(lbound);
+      if (lbound >= hbound)
+        break;
+      if (lbound - pr == 2)
+        twin++;
+      }
+    return twin;
+  }
 }
