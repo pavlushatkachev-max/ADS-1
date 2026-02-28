@@ -1,5 +1,4 @@
 // Copyright 2022 NNTU-CS
-#include <cstdint>
 #include "alg.h"
 #include <iostream>
 bool checkPrime(uint64_t value) {
@@ -36,7 +35,7 @@ uint64_t nPrime(uint64_t n) {
 }
 uint64_t nextPrime(uint64_t value) {
   if (checkPrime(value)) {
-    if (value == 2){
+    if (value == 2) {
       return 3;
       } else {
       value += 2;
